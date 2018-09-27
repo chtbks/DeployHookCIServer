@@ -1,0 +1,18 @@
+{
+	"name": "deployserver",
+	"version": "1.0.0",
+	"description": "Middleman server used to handle webhooks from a deploy event from heroku to trigger tests on either teamcity or mabl",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.16.3"
+	},
+	"engines": {
+		"node": "8.11.3",
+		"npm": "6.4.1"
+	}
+}
