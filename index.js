@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -18,12 +19,32 @@ function updateClient(postData) {
 		}
 	};
 	request(clientServerOptions, function(error, response) {
-		return;
+		return response.body;
 	});
 }
+app.use('/api', router);
 
-app.post('/', function(req, res) {
-	res.send(updateClient(req.body));
+//const originWhitelist = ['http://localhost:3000', 'https://example.net'];
+
+// middleware route that all requests pass through
+router.use((request, response, next) => {
+	let origin = request.headers.origin;
+
+	// only allow requests from origins that we trust
+	//if (originWhitelist.indexOf(origin) > -1) {
+	//  response.setHeader('Access-Control-Allow-Origin', origin);
+	//}
+
+	// only allow get requests, separate methods by comma e.g. 'GET, POST'
+	response.setHeader('Access-Control-Allow-Methods', 'POST');
+	response.setHeader('Access-Control-Allow-Credentials', true);
+
+	// push through to the proper route
+	next();
+});
+
+router.post('/', (req, res) => {
+	res.json(updateClient(req.body));
 });
 
 app.listen(PORT);
