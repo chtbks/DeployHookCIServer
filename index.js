@@ -31,9 +31,9 @@ router.use((request, response, next) => {
 	let origin = request.headers.origin;
 
 	// only allow requests from origins that we trust
-	//if (originWhitelist.indexOf(origin) > -1) {
-	//  response.setHeader('Access-Control-Allow-Origin', origin);
-	//}
+	if (originWhitelist.indexOf(origin) > -1) {
+		response.setHeader('Access-Control-Allow-Origin', origin);
+	}
 
 	// only allow get requests, separate methods by comma e.g. 'GET, POST'
 	response.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -44,7 +44,7 @@ router.use((request, response, next) => {
 });
 
 router.post('/', (req, res) => {
-	res.json(req.body);
+	res.send(req.body);
 });
 
 app.listen(PORT);
