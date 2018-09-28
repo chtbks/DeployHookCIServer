@@ -24,7 +24,7 @@ function updateClient(postData) {
 }
 app.use('/api', router);
 
-//const originWhitelist = ['http://localhost:3000', 'https://example.net'];
+const originWhitelist = ['https://deployhookciserver.herokuapp.com'];
 
 // middleware route that all requests pass through
 router.use((request, response, next) => {
@@ -44,7 +44,7 @@ router.use((request, response, next) => {
 });
 
 router.post('/', (req, res) => {
-	res.json(updateClient(req.body));
+	res.json(req.body);
 });
 
 app.listen(PORT);
