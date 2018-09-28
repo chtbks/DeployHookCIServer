@@ -19,10 +19,11 @@ function updateClient(postData) {
 		}
 	};
 	request(clientServerOptions, function(error, response) {
-		return response.body;
+		console.log(response.body);
+		return;
 	});
-}
-app.use('/api', router);*/
+}*/
+//app.use('/api', router);
 
 //const originWhitelist = ['https://deployhookciserver.herokuapp.com'];
 
@@ -47,7 +48,9 @@ app.get('/', function(req, res) {
 	res.send('Send cookies to Bert plz');
 });
 app.post('/', function(req, res) {
-	res.send(req.body);
+	if (req.body) {
+		res.send(req.body);
+	}
 });
 
-app.listen(3000);
+app.listen(PORT);
