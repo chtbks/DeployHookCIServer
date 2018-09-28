@@ -1,9 +1,9 @@
 const express = require('express');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const app = express();
 //const router = express.Router();
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const PORT = process.env.PORT;
 
@@ -43,8 +43,11 @@ app.use('/api', router);*/
 	next();
 });*/
 
-app.get('/', (req, res) => {
-	res.send('poopy');
+app.get('/', function(req, res) {
+	res.send('Send cookies to Bert plz');
+});
+app.post('/', function(req, res) {
+	res.send(req.body);
 });
 
-app.listen(PORT);
+app.listen(3000);
