@@ -1,13 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const app = express();
-const router = express.Router();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//const router = express.Router();
+//app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 
 const PORT = process.env.PORT;
 
-var request = require('request');
+/*var request = require('request');
 function updateClient(postData) {
 	var clientServerOptions = {
 		uri:
@@ -22,12 +22,12 @@ function updateClient(postData) {
 		return response.body;
 	});
 }
-app.use('/api', router);
+app.use('/api', router);*/
 
-const originWhitelist = ['https://deployhookciserver.herokuapp.com'];
+//const originWhitelist = ['https://deployhookciserver.herokuapp.com'];
 
 // middleware route that all requests pass through
-router.use((request, response, next) => {
+/*router.use((request, response, next) => {
 	let origin = request.headers.origin;
 
 	// only allow requests from origins that we trust
@@ -41,10 +41,10 @@ router.use((request, response, next) => {
 
 	// push through to the proper route
 	next();
-});
+});*/
 
-router.post('/', (req, res) => {
-	res.send(req.body);
+app.get('/', (req, res) => {
+	res.send('poopy');
 });
 
 app.listen(PORT);
