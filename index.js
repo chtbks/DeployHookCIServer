@@ -23,9 +23,7 @@ function updateClient(postData) {
 }
 
 app.post('/', function(req, res) {
-	if (req) {
-		res.send(updateClient(req.body));
-	}
+	res.send(updateClient(req.body));
 });
 
 app.listen(PORT);
