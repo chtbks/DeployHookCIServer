@@ -6,14 +6,18 @@ const request = require('request');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.set('view engine', 'pug');
 
 const PORT = process.env.PORT;
+var link = 'https://www.google.com';
 
 function postToMabl(appEnv) {
 	if (appEnv === 'development-infinite') {
 		shell.exec('./dev-mabl.sh');
 	} else if (appEnv === 'staging-infinite') {
 		shell.exec('./staging-mabl.sh');
+	} else if (appEnv.includes('production-infinite')) {
+		shell.exec('./');
 	} else {
 		throw 'Heroku web-app environment not configured.';
 	}
@@ -40,11 +44,14 @@ function postToSlack(payload) {
 }
 
 app.get('/', function(req, res) {
-	res.send('Send cookies to Bert plz');
+	res.render('index', {
+		chatbookslink: link
+	});
 });
 app.post('/', function(req, res) {
 	if (req.body) {
 		try {
+			link = 'https://' + req.body.app + 'herokuapp.com/';
 			postToMabl(req.body.app);
 			postToSlack(req.body);
 			res.send({
@@ -62,4 +69,4 @@ app.post('/', function(req, res) {
 	}
 });
 
-app.listen(PORT);
+app.listen(3000);
