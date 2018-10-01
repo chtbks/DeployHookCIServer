@@ -13,14 +13,15 @@ function postToMabl(appEnv) {
 	if (appEnv === 'development-infinite') {
 		shell.exec('./dev-mabl.sh');
 	} else if (appEnv === 'staging-infinite') {
-		shell.exec('./dev-mabl.sh');
+		shell.exec('./staging-mabl.sh');
 	} else {
 		throw 'Heroku web-app environment not configured.';
 	}
 }
 function postToSlack(payload) {
 	var bodyString = payload.app
-		? payload.app + 'deployed successfully and UI tests have been triggered.'
+		? payload.app.replace(/\"/g, '') +
+		  ' deployed successfully and UI tests have been triggered.'
 		: JSON.stringify(payload).replace(/\{|\}|\"/g, ' ');
 	var requestShiz = {
 		uri:
