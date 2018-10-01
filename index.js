@@ -25,7 +25,7 @@ function postToSlack(payload) {
 		: JSON.stringify(payload).replace(/\{|\}|\"/g, ' ');
 	var requestShiz = {
 		uri:
-			'https://hooks.slack.com/services/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',
+			'https://hooks.slack.com/services/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',
 		body: '{"text": "' + bodyString + '"}',
 		method: 'POST',
 		headers: {
