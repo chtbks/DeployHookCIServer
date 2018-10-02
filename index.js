@@ -51,7 +51,7 @@ app.get('/', function(req, res) {
 app.post('/', function(req, res) {
 	if (req.body) {
 		try {
-			link = 'https://' + req.body.app + 'herokuapp.com/';
+			link = 'https://' + req.body.app + '.herokuapp.com/';
 			postToMabl(req.body.app);
 			postToSlack(req.body);
 			res.send({
