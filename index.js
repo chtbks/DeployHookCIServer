@@ -9,7 +9,9 @@ app.use(bodyParser.json());
 app.set('view engine', 'pug');
 
 const PORT = process.env.PORT;
-var link = 'https://www.google.com';
+var devlink = 'https://development-infinite.chatbooks.com';
+var staginglink = 'https://staging-infinite.chatbooks.com';
+var prodlink = 'https://production-infinite.chatbooks.com';
 
 function postToMabl(appEnv) {
 	if (appEnv === 'development-infinite') {
@@ -45,13 +47,15 @@ function postToSlack(payload) {
 
 app.get('/', function(req, res) {
 	res.render('index', {
-		chatbookslink: link
+		devlink: devlink,
+		staginglink: staginglink,
+		prodlink: prodlink
 	});
 });
 app.post('/', function(req, res) {
 	if (req.body) {
 		try {
-			link = 'https://' + req.body.app + '.herokuapp.com/';
+			prodlink = 'https://' + req.body.app + '.herokuapp.com/';
 			postToMabl(req.body.app);
 			postToSlack(req.body);
 			res.send({
