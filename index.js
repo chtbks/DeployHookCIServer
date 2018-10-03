@@ -14,11 +14,11 @@ var staginglink = 'https://staging-infinite.chatbooks.com';
 var prodlink = 'https://production-infinite.chatbooks.com';
 
 function postToMabl(appEnv) {
-	if (appEnv.includes('development')) {
+	if (appEnv.toLowerCase().includes('development')) {
 		shell.exec('./dev-mabl.sh');
-	} else if (appEnv.includes('staging')) {
+	} else if (appEnv.toLowerCase().includes('staging')) {
 		shell.exec('./staging-mabl.sh');
-	} else if (appEnv.includes('production')) {
+	} else if (appEnv.toLowerCase().includes('production')) {
 		shell.exec('./');
 	} else {
 		throw 'Heroku web-app environment not configured.';
@@ -63,12 +63,15 @@ app.post('/', function(req, res) {
 				result: 'Success'
 			});
 		} catch (error) {
-			postToSlack('{"message": "' + error + '"}');
-			res.send({
-				status: 500,
-				result: 'Failure',
-				message: error + '. Could not execute POST requests to mabl and slack.'
-			});
+			res.send(
+				postToSlack({
+					status: 500,
+					result: 'Failure',
+					message:
+						error + ' Could not execute POST requests to mabl and slack.',
+					params: req.body.app
+				})
+			);
 		}
 	}
 });
