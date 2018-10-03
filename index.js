@@ -14,11 +14,11 @@ var staginglink = 'https://staging-infinite.chatbooks.com';
 var prodlink = 'https://production-infinite.chatbooks.com';
 
 function postToMabl(appEnv) {
-	if (appEnv === 'development-infinite') {
+	if (appEnv.includes('development')) {
 		shell.exec('./dev-mabl.sh');
-	} else if (appEnv === 'staging-infinite') {
+	} else if (appEnv.includes('staging')) {
 		shell.exec('./staging-mabl.sh');
-	} else if (appEnv.includes('production-infinite')) {
+	} else if (appEnv.includes('production')) {
 		shell.exec('./');
 	} else {
 		throw 'Heroku web-app environment not configured.';
@@ -73,4 +73,4 @@ app.post('/', function(req, res) {
 	}
 });
 
-app.listen(3000);
+app.listen(PORT);
