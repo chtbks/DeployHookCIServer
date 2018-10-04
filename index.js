@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const shell = require('shelljs');
 const request = require('request');
+const mongo = require('./mongo.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.set('view engine', 'pug');
+app.use(express.static(__dirname + '/public'));
 
 const PORT = process.env.PORT;
 var devlink = 'https://development-infinite.chatbooks.com';
@@ -52,6 +54,7 @@ app.get('/', function(req, res) {
 		prodlink: prodlink
 	});
 });
+
 app.post('/', function(req, res) {
 	if (req.body) {
 		try {
@@ -74,6 +77,24 @@ app.post('/', function(req, res) {
 			);
 		}
 	}
+});
+
+app.post('/getEmail', function(req, res) {
+	mongo.getEmail(req.body, function(email) {
+		res.send(email);
+	});
+});
+app.post('/insertNewUserDocument', function(req, res) {
+	mongo.insertNewUserDocument(req.body, function(result) {
+		res.send(result);
+	});
+});
+app.post('/updateDocument', function(req, res) {
+	mongo.updateDocument(req.body.queryObject, req.body.updateObject, function(
+		result
+	) {
+		res.send(result);
+	});
 });
 
 app.listen(PORT);
