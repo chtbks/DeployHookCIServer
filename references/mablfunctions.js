@@ -5,9 +5,12 @@ function mablJavaScriptStep(mablInputs, callback) {
 	xhr.open(
 		'POST',
 		'https://deployhookciserver.herokuapp.com/insertNewUserDocument',
-		false
+		true
 	);
 	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.onload = function() {
+		callback(xhr.responseText);
+	};
 	xhr.send(
 		JSON.stringify({
 			emailAddress: mablInputs.variables.user.NewEmail,
@@ -24,14 +27,13 @@ function mablJavaScriptStep(mablInputs, callback) {
 			customSourcesInDrafts: []
 		})
 	);
-	callback(xhr.responseText.insertedCount);
 }
 
 mablJavaScriptStep(
 	{
 		variables: {
 			user: {
-				NewEmail: 'test1@jamily.co'
+				NewEmail: 'test2@jamily.co'
 			}
 		}
 	},

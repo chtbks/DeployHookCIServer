@@ -54,6 +54,11 @@ app.get('/', function(req, res) {
 		prodlink: prodlink
 	});
 });
+app.get('/liveHappyUsersCount', function(req, res) {
+	mongo.liveHappyUsersCount(function(count) {
+		res.send({ CurrentCount: count });
+	});
+});
 
 app.post('/', function(req, res) {
 	if (req.body) {
@@ -97,4 +102,4 @@ app.post('/updateDocument', function(req, res) {
 	});
 });
 
-app.listen(PORT);
+app.listen(3000);
