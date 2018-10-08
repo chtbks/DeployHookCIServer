@@ -61,7 +61,7 @@ app.get('/liveHappyUsersCount', function(req, res) {
 });
 app.get('/liveHappyUsersCount/ByMonth', function(req, res) {
 	mongo.liveHappyUsersCountByMonth(function(dateObject) {
-		res.send(JSON.stringify(dateObject));
+		res.send(dateObject);
 	});
 });
 

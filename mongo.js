@@ -5,6 +5,20 @@ var url =
 var dbName = 'heroku_9zhjv4th';
 var collectionName = 'chatomation-users';
 var liveHappyCollectionName = 'live-happy-users';
+var monthNames = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December'
+];
 var self = this;
 
 self.insertNewUserDocument = function(userObject, callback) {
@@ -104,8 +118,8 @@ self.liveHappyUsersCountByMonth = function(callback) {
 							? (monthCount = 0)
 							: monthCount++;
 
-						var month = date.getMonth() + 1;
-						monthObject[month] = monthCount;
+						var month = date.getMonth();
+						monthObject[monthNames[month]] = monthCount;
 						yearObject[date.getFullYear()] = monthObject;
 					}
 					/*result.forEach(function(doc) {
