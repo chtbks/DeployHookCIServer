@@ -59,6 +59,11 @@ app.get('/liveHappyUsersCount', function(req, res) {
 		res.send({ CurrentCount: count });
 	});
 });
+app.get('/liveHappyUsersCount/ByMonth', function(req, res) {
+	mongo.liveHappyUsersCountByMonth(function(dateObject) {
+		res.send(dateObject);
+	});
+});
 
 app.post('/', function(req, res) {
 	if (req.body) {
